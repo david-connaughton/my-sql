@@ -1,0 +1,134 @@
+mysql> source test.sql
++----------+
+| count(*) |
++----------+
+|     3503 |
++----------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+|      275 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM Album LIMIT 5;
++---------+---------------------------------------+----------+
+| AlbumId | Title                                 | ArtistId |
++---------+---------------------------------------+----------+
+|       1 | For Those About To Rock We Salute You |        1 |
+|       2 | Balls to the Wall                     |        2 |
+|       3 | Restless and Wild                     |        2 |
+|       4 | Let There Be Rock                     |        1 |
+|       5 | Big Ones                              |        3 |
++---------+---------------------------------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT Title, Name FROM Album
+    -> JOIN Artist ON Album.ArtistId = Artist.ArtistId
+    -> LIMIT 5;
++---------------------------------------+-----------+
+| Title                                 | Name      |
++---------------------------------------+-----------+
+| For Those About To Rock We Salute You | AC/DC     |
+| Balls to the Wall                     | Accept    |
+| Restless and Wild                     | Accept    |
+| Let There Be Rock                     | AC/DC     |
+| Big Ones                              | Aerosmith |
++---------------------------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> DESC Genre;
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| GenreId | int          | NO   | PRI | NULL    | auto_increment |
+| Name    | varchar(120) | YES  |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO GENRE (Name) VALUES ("Trad");
+ERROR 1146 (42S02): Table 'Chinook.GENRE' doesn't exist
+mysql> INSERT INTO Genre (Name) VALUES ('Trad')
+    -> ;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM Genre;
++---------+--------------------+
+| GenreId | Name               |
++---------+--------------------+
+|       1 | Rock               |
+|       2 | Jazz               |
+|       3 | Metal              |
+|       4 | Alternative & Punk |
+|       5 | Rock And Roll      |
+|       6 | Blues              |
+|       7 | Latin              |
+|       8 | Reggae             |
+|       9 | Pop                |
+|      10 | Soundtrack         |
+|      11 | Bossa Nova         |
+|      12 | Easy Listening     |
+|      13 | Heavy Metal        |
+|      14 | R&B/Soul           |
+|      15 | Electronica/Dance  |
+|      16 | World              |
+|      17 | Hip Hop/Rap        |
+|      18 | Science Fiction    |
+|      19 | TV Shows           |
+|      20 | Sci Fi & Fantasy   |
+|      21 | Drama              |
+|      22 | Comedy             |
+|      23 | Alternative        |
+|      24 | Classical          |
+|      25 | Opera              |
+|      26 | Trad               |
++---------+--------------------+
+26 rows in set (0.00 sec)
+
+mysql> SELECT LAST_INSERT_ID();
++------------------+
+| LAST_INSERT_ID() |
++------------------+
+|               26 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT Name FROM Genre WHERE GenreId = 26;
++------+
+| Name |
++------+
+| Trad |
++------+
+1 row in set (0.00 sec)
+
+mysql> UPDTE Genre SET Name = 'Traditional' WHERE Name ='Trad';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UPDTE Genre SET Name = 'Traditional' WHERE Name ='Trad'' at line 1
+mysql> UPDATE Genre SET Name = 'Traditional' WHERE Name = 'Trad';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT LAST_INSERT_ID();
++------------------+
+| LAST_INSERT_ID() |
++------------------+
+|               26 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT Name FROM Genre Where GenreId = 26;
++-------------+
+| Name        |
++-------------+
+| Traditional |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> exit():
+    -> exit
+    -> quit;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'exit():
+exit
+quit' at line 1
+mysql> quit
